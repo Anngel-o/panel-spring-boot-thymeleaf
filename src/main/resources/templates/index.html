@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel dinámico con Thymeleaf</title>
+
+    <!-- Bootstrap 3 + jQuery -->
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+    <!-- Estilos del panel (los que te pasaron) -->
+    <style>
+        .panel.with-nav-tabs .panel-heading{
+            padding: 5px 5px 0 5px;
+        }
+        .panel.with-nav-tabs .nav-tabs{
+            border-bottom: none;
+        }
+        .panel.with-nav-tabs .nav-justified{
+            margin-bottom: -1px;
+        }
+
+        /********************************************************************/
+        /*** PANEL DEFAULT ***/
+        .with-nav-tabs.panel-default .nav-tabs > li > a,
+        .with-nav-tabs.panel-default .nav-tabs > li > a:hover,
+        .with-nav-tabs.panel-default .nav-tabs > li > a:focus {
+            color: #777;
+        }
+        .with-nav-tabs.panel-default .nav-tabs > .open > a,
+        .with-nav-tabs.panel-default .nav-tabs > .open > a:hover,
+        .with-nav-tabs.panel-default .nav-tabs > .open > a:focus,
+        .with-nav-tabs.panel-default .nav-tabs > li > a:hover,
+        .with-nav-tabs.panel-default .nav-tabs > li > a:focus {
+            color: #777;
+            background-color: #ddd;
+            border-color: transparent;
+        }
+        .with-nav-tabs.panel-default .nav-tabs > li.active > a,
+        .with-nav-tabs.panel-default .nav-tabs > li.active > a:hover,
+        .with-nav-tabs.panel-default .nav-tabs > li.active > a:focus {
+            color: #555;
+            background-color: #fff;
+            border-color: #ddd;
+            border-bottom-color: transparent;
+        }
+
+        /********************************************************************/
+        /*** PANEL PRIMARY ***/
+        .with-nav-tabs.panel-primary .nav-tabs > li > a,
+        .with-nav-tabs.panel-primary .nav-tabs > li > a:hover,
+        .with-nav-tabs.panel-primary .nav-tabs > li > a:focus {
+            color: #fff;
+        }
+        .with-nav-tabs.panel-primary .nav-tabs > .open > a,
+        .with-nav-tabs.panel-primary .nav-tabs > .open > a:hover,
+        .with-nav-tabs.panel-primary .nav-tabs > .open > a:focus,
+        .with-nav-tabs.panel-primary .nav-tabs > li > a:hover,
+        .with-nav-tabs.panel-primary .nav-tabs > li > a:focus {
+            color: #fff;
+            background-color: #3071a9;
+            border-color: transparent;
+        }
+        .with-nav-tabs.panel-primary .nav-tabs > li.active > a,
+        .with-nav-tabs.panel-primary .nav-tabs > li.active > a:hover,
+        .with-nav-tabs.panel-primary .nav-tabs > li.active > a:focus {
+            color: #428bca;
+            background-color: #fff;
+            border-color: #428bca;
+            border-bottom-color: transparent;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <div class="page-header">
+        <h1>Panel dinámico con Thymeleaf</h1>
+    </div>
+
+    <div class="row">
+
+        <!-- PANEL DEFAULT -->
+        <div class="col-md-6">
+            <div class="panel with-nav-tabs panel-default">
+                <div class="panel-heading">
+                    <ul class="nav nav-tabs">
+
+                        <!-- Tabs normales -->
+                        <li th:each="item, iter : ${panelDefault}"
+                            th:if="${iter.index < 3}"
+                            th:classappend="${iter.index == 0} ? 'active'">
+                            <a th:href="'#default' + ${iter.index}" data-toggle="tab"
+                               th:text="${item.nombre}"></a>
+                        </li>
+
+                        <!-- Dropdown -->
+                        <li class="dropdown" th:if="${panelDefault.size() > 3}">
+                            <a href="#" data-toggle="dropdown">
+                                Más opciones <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li th:each="item, iter : ${panelDefault}"
+                                    th:if="${iter.index >= 3}">
+                                    <a th:href="'#default' + ${iter.index}" data-toggle="tab"
+                                       th:text="${item.nombre}"></a>
+                                </li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </div>
+
+                <div class="panel-body">
+                    <div class="tab-content">
+                        <div th:each="item, iter : ${panelDefault}"
+                             class="tab-pane fade"
+                             th:classappend="${iter.index == 0} ? ' in active'"
+                             th:id="'default' + ${iter.index}">
+                            <p th:text="${item.contenido}"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PANEL PRIMARY -->
+        <div class="col-md-6">
+            <div class="panel with-nav-tabs panel-primary">
+                <div class="panel-heading">
+                    <ul class="nav nav-tabs">
+
+                        <!-- Tabs normales -->
+                        <li th:each="item, iter : ${panelPrimary}"
+                            th:if="${iter.index < 3}"
+                            th:classappend="${iter.index == 0} ? 'active'">
+                            <a th:href="'#primary' + ${iter.index}" data-toggle="tab"
+                               th:text="${item.nombre}"></a>
+                        </li>
+
+                        <!-- Dropdown -->
+                        <li class="dropdown" th:if="${panelPrimary.size() > 3}">
+                            <a href="#" data-toggle="dropdown">
+                                Más opciones <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li th:each="item, iter : ${panelPrimary}"
+                                    th:if="${iter.index >= 3}">
+                                    <a th:href="'#primary' + ${iter.index}" data-toggle="tab"
+                                       th:text="${item.nombre}"></a>
+                                </li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </div>
+
+                <div class="panel-body">
+                    <div class="tab-content">
+                        <div th:each="item, iter : ${panelPrimary}"
+                             class="tab-pane fade"
+                             th:classappend="${iter.index == 0} ? ' in active'"
+                             th:id="'primary' + ${iter.index}">
+                            <p th:text="${item.contenido}"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
