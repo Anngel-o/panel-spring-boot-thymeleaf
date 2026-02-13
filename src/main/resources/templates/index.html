@@ -2,7 +2,7 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Panel dinámico con Thymeleaf</title>
+    <title>Usando Thymeleaf</title>
 
     <link href="https://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -42,7 +42,7 @@
             border-color: #ddd;
             border-bottom-color: transparent;
         }
-        
+
         /*** PANEL PRIMARY ***/
         .with-nav-tabs.panel-primary .nav-tabs > li > a,
         .with-nav-tabs.panel-primary .nav-tabs > li > a:hover,
@@ -73,7 +73,7 @@
 
 <div class="container">
     <div class="page-header">
-        <h1>Panel dinámico con Thymeleaf</h1>
+        <h1>Listas dinamicas con Thymeleaf</h1>
     </div>
 
     <div class="row">
@@ -95,7 +95,7 @@
                         <!-- Dropdown -->
                         <li class="dropdown" th:if="${panelDefault.size() > 3}">
                             <a href="#" data-toggle="dropdown">
-                                Más opciones <span class="caret"></span>
+                                Pokemones <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu">
                                 <li th:each="item, iter : ${panelDefault}"
@@ -139,7 +139,7 @@
                         <!-- Dropdown -->
                         <li class="dropdown" th:if="${panelPrimary.size() > 3}">
                             <a href="#" data-toggle="dropdown">
-                                Más opciones <span class="caret"></span>
+                                Pokemones<span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu">
                                 <li th:each="item, iter : ${panelPrimary}"
